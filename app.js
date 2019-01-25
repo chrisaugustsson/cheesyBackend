@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const index = require("./routes/index");
-const hello = require("./routes/hello");
+const reports = require("./routes/reports");
 
 const app = express();
 
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 app.use("/", index);
-app.use("/hello", hello);
+app.use("/reports", reports);
 
 
 app.use((req, res, next) => {
