@@ -1,9 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 
 const index = require("./routes/index");
 const reports = require("./routes/reports");
+const user = require("./routes/user");
 
 const app = express();
 
@@ -15,8 +17,12 @@ if (process.env.NODE_ENV !== "test") {
     app.use(morgan("combined"));
 }
 
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 app.use("/", index);
 app.use("/reports", reports);
+app.use("/user", user);
 
 
 app.use((req, res, next) => {
