@@ -11,7 +11,7 @@
     "test1": "docker-compose run node_latest npm test",
     "test2": "docker-compose run node_10 npm test",
     "test3": "docker-compose run node_8 npm test",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "author": "",
   "license": "ISC",
