@@ -9,8 +9,6 @@ const user = require("./routes/user");
 
 const app = express();
 
-const port = 1337;
-
 app.use(cors());
 
 if (process.env.NODE_ENV !== "test") {
@@ -40,11 +38,11 @@ app.use((err, req, res, next) => {
         "errors": [
             {
                 "status": err.status,
-                "title":  err.message,
+                "title": err.message,
                 "detail": err.message
             }
         ]
     });
 });
 
-app.listen(port, () => console.log(`Lyssnar på port ${port}`));
+module.exports = app;

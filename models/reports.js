@@ -1,43 +1,35 @@
 const sqlite = require("sqlite3");
 const db = new sqlite.Database("./db/texts.sqlite");
 
-exports.get = function (kmom, res) {
-    db.get("SELECT * FROM reports WHERE name = ?",
-        kmom,
-        (err, rows) => {
-            if (err) {
-                res.stats(500).json({
-                    error: err
-                })
+exports.get = function (kmom) {
+    const result = new Promise((resolve, reject) => {
+        db.get("SELECT * FROM reports WHERE name = ?",
+            kmom,
+            (err, rows) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(rows);
             }
+        )
+    })
 
-            res.json({
-                rows
-            })
-        }
-    )
+    return result;
 };
 
-exports.addReport = function (name, content, res) {
-    db.run("INSERT INTO reports (name, content) VALUES (?, ?)",
-        name,
-        content,
-        (err) => {
-            if (err) {
-                return res.status(500).json({
-                    errors: {
-                        status: 500,
-                        title: "database error",
-                        detail: err
-                    }
-                });
-            }
-
-            res.status(201).json({
-                data: {
-                    message: "Reports added"
+exports.addReport = function (name, content) {
+    const result = new Promise((resolve, reject) => {
+        db.run("INSERT INTO reports (name, content) VALUES (?, ?)",
+            name,
+            content,
+            (err) => {
+                if (err) {
+                    reject(err);
                 }
-            });
-        }
-    )
+                resolve({ data: { message: "Reports added" } });
+            }
+        )
+    })
+
+    return result;
 };

@@ -7,95 +7,111 @@ const db = new sqlite.Database("./db/texts.sqlite");
 const saltrounds = 10;
 
 exports.registerUser = function (user, password, res) {
-    bcrypt.hash(password, saltrounds, function (err, hash) {
-        if (err) {
-            return res.status(500).json({
-                errors: {
+    const result = new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltrounds, function (err, hash) {
+            if (err) {
+                return reject({
                     status: 500,
                     source: "user/register",
                     title: "bcrypt error",
                     detail: err
-                }
-            });
-        }
+                })
+            }
 
-        db.run("INSERT INTO users (email, password) VALUES (?, ?)",
-            user,
-            hash,
-            (err) => {
-                if (err) {
-                    return res.status(500).json({
-                        errors: {
+            db.run("INSERT INTO users (email, password) VALUES (?, ?)",
+                user,
+                hash,
+                (err) => {
+                    if (err) {
+                        return reject({
                             status: 500,
                             source: "user/register",
                             title: "database error",
                             detail: err
-                        }
-                    });
-                }
-
-                res.status(201).json({
-                    data: {
-                        message: "User successfully registered."
+                        })
                     }
-                });
-            }
-        )
+                    return resolve({
+                        data: {
+                            message: "User successfully registered."
+                        }
+                    })
+                }
+            )
+        });
     });
+
+    return result;
 }
 
 exports.login = function (user, password, res) {
-    db.get("SELECT password FROM users WHERE email = ?",
-        user,
-        (err, rows) => {
-            if (err) {
-                return res.status(500).json({
-                    errors: err
-                })
-            }
+    const result = new Promise((resolve, reject) => {
+        db.get("SELECT password FROM users WHERE email = ?",
+            user,
+            (err, rows) => {
 
-            if (rows === undefined) {
-                return res.status(401).json({
-                    error: "User not found"
-                })
-            }
-
-            const userPass = rows.password;
-
-            console.log("Pass", userPass);
-
-            bcrypt.compare(password, userPass, (err, result) => {
+                //rejects if error with DB
                 if (err) {
-                    return res.status(500).json({
-                        type: "bcrypt error",
-                        error: err
+                    return reject({
+                        status: 500,
+                        error: {
+                            type: "Database",
+                            detail: err
+                        }
                     })
                 }
 
-                const payload = { email: user };
-                const secret = process.env.JWT_SECRET || "secret";
-
-                const token = jwt.sign(payload, secret, { expiresIn: '1h'});
-
-                if (result) {
-                    return res.json({
-                        data: {
-                            status: "success",
-                            user: user,
-                            token: token
+                //Rejects if user is not found
+                if (rows === undefined) {
+                    return reject({
+                        status: 401,
+                        error: {
+                            type: "Database",
+                            detail: "User not found"
                         }
                     })
-                } else {
-                    return res.status(401).json({
-                        errors: {
+                }
+
+                const userPass = rows.password;
+
+                // Compare password and hash
+                // Reject if bcrypt error
+                bcrypt.compare(password, userPass, (err, result) => {
+                    if (err) {
+                        return reject({
+                            status: 500,
+                            error: {
+                                type: "bcrypt error",
+                                detail: err
+                            }
+                        })
+                    }
+
+                    const payload = { email: user };
+                    const secret = process.env.JWT_SECRET || "secret";
+
+                    const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+
+                    if (result) {
+                        return resolve({
+                            data: {
+                                status: "success",
+                                user: user,
+                                token: token
+                            }
+                        })
+                    } else {
+                        return reject({
                             status: 401,
-                            source: "/login",
-                            title: "Wrong password",
-                            detail: "Password is incorrect."
-                        }
-                    })
-                }
-            })
-        }
-    )
+                            error: {
+                                type: "Wrong password",
+                                detail: "Password is incorrect."
+                            }
+                        })
+                    }
+                })
+            }
+        )
+    })
+
+    return result;
 }

@@ -1,0 +1,25 @@
+version: "3"
+services:
+    node_latest:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-latest
+        volumes:
+            - ./:/app/
+            - /app/node_modules/
+
+    node_10:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-10
+        volumes:
+            - ./:/app/
+            - /app/node_modules/
+
+    node_8:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile-node-8
+        volumes:
+            - ./:/app/
+            - /app/node_modules/

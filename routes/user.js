@@ -2,9 +2,11 @@ var express = require("express");
 var router = express.Router();
 var user = require("./../models/user");
 
-router.post("/register", (req, res, next) => {
+router.post("/register", async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+
+    let result;
 
     if (!email || !password) {
         return res.status(401).json({
@@ -17,12 +19,24 @@ router.post("/register", (req, res, next) => {
         });
     }
 
-    user.registerUser(email, password, res);
+    try {
+        result = await user.registerUser(email, password);
+    } catch (error) {
+        return res.status(error.status).json({
+            error
+        });
+    }
+
+    return res.json({
+        result
+    });
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+
+    let result;
 
     if (!email || !password) {
         return res.status(401).json({
@@ -35,7 +49,17 @@ router.post("/login", (req, res, next) => {
         });
     }
 
-    user.login(email, password, res);
+    try {
+        result = await user.login(email, password);
+    } catch (error) {
+        return res.status(error.status).json({
+            error
+        });
+    }
+
+    return res.json({
+        result
+    });
 });
 
 module.exports = router;

@@ -3,9 +3,10 @@ var router = express.Router();
 var reports = require("./../models/reports");
 var checktoken = require("./../middlewares/checktoken");
 
-router.post("/", checktoken, (req, res) => {
+router.post("/", checktoken, async (req, res) => {
     const name = req.body.name;
     const content = req.body.content;
+    let result;
 
     if (!name || !content) {
         res.status(500).json({
@@ -13,11 +14,37 @@ router.post("/", checktoken, (req, res) => {
         });
     }
 
-    reports.addReport(name, content, res);
+    // Try to add report to database.
+    // Return message if ok, catch error if not.
+    try {
+        result = await reports.addReport(name, content);
+    } catch (error) {
+        return res.status(500).json({
+            error
+        })
+    }
+
+    return res.json({
+        result
+    })
 })
 
-router.get("/:kmom", (req, res) => {
-    reports.get(req.params.kmom, res);
+router.get("/:kmom", async (req, res) => {
+    let result;
+
+    // Try to fetch the report from database
+    // Return error with status 500 if error
+    try {
+        result = await reports.get(req.params.kmom);
+    } catch (error) {
+        return res.status(500).json({
+            error
+        })
+    }
+
+    return res.json({
+        result
+    })
 });
 
 module.exports = router;
