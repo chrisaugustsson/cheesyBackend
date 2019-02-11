@@ -12,7 +12,7 @@
     "test2": "docker-compose run node_10 npm test",
     "test3": "docker-compose run node_8 npm test",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "cover": "coveralls < coverage/lcov.info"
+    "cover": "coveralls < coverage/lcov.infoa"
   },
   "author": "",
   "license": "ISC",
