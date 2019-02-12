@@ -9,7 +9,7 @@ router.post("/", checktoken, async (req, res) => {
     let result;
 
     if (!name || !content) {
-        res.status(500).json({
+        return res.status(500).json({
             error: "Missing reports name or content"
         });
     }
