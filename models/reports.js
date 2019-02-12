@@ -7,9 +7,9 @@ exports.get = function (kmom) {
             kmom,
             (err, rows) => {
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
-                resolve(rows);
+                return resolve(rows);
             }
         )
     })
@@ -24,9 +24,9 @@ exports.addReport = function (name, content) {
             content,
             (err) => {
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
-                resolve({ data: { message: "Reports added" } });
+                return resolve({ data: { message: "Reports added" } });
             }
         )
     })
