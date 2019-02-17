@@ -1,52 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1550424775976" clover="3.2.0">
-  <project timestamp="1550424775976" name="All files">
-    <metrics statements="137" coveredstatements="120" conditionals="40" coveredconditionals="33" methods="25" coveredmethods="21" elements="202" coveredelements="174" complexity="0" loc="137" ncloc="137" packages="5" files="10" classes="10"/>
-    <package name="backend">
-      <metrics statements="29" coveredstatements="18" conditionals="6" coveredconditionals="1" methods="3" coveredmethods="0"/>
-      <file name="app.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\app.js">
-        <metrics statements="25" coveredstatements="18" conditionals="6" coveredconditionals="1" methods="2" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="14" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="48" count="2" type="stmt"/>
-      </file>
-      <file name="server.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\server.js">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="backend.helpers">
+<coverage generated="1550429300518" clover="3.2.0">
+  <project timestamp="1550429300518" name="All files">
+    <metrics statements="108" coveredstatements="102" conditionals="34" coveredconditionals="32" methods="22" coveredmethods="21" elements="164" coveredelements="155" complexity="0" loc="108" ncloc="108" packages="4" files="8" classes="8"/>
+    <package name="helpers">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="helpers.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\helpers\helpers.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
-    <package name="backend.middlewares">
+    <package name="middlewares">
       <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
       <file name="checktoken.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\middlewares\checktoken.js">
         <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
@@ -60,7 +22,7 @@
         <line num="15" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="backend.models">
+    <package name="models">
       <metrics statements="52" coveredstatements="52" conditionals="18" coveredconditionals="18" methods="15" coveredmethods="15"/>
       <file name="me.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\models\me.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -124,7 +86,7 @@
         <line num="115" count="9" type="stmt"/>
       </file>
     </package>
-    <package name="backend.routes">
+    <package name="routes">
       <metrics statements="48" coveredstatements="42" conditionals="12" coveredconditionals="10" methods="5" coveredmethods="4"/>
       <file name="index.js" path="C:\cygwin64\home\Develop\dbwebb-kurser\ramverk2\me\redovisa\backend\routes\index.js">
         <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
