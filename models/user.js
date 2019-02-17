@@ -2,11 +2,11 @@ const bcrypt = require("bcrypt");
 const sqlite = require("sqlite3");
 const jwt = require("jsonwebtoken");
 
-const db = new sqlite.Database("./db/texts.sqlite");
+const db = require("../db/database.js");
 
 const saltrounds = 10;
 
-exports.registerUser = function (user, password, res) {
+exports.registerUser = function (user, password) {
     const result = new Promise((resolve, reject) => {
         bcrypt.hash(password, saltrounds, function (err, hash) {
             if (err) {
@@ -48,7 +48,6 @@ exports.login = function (user, password, res) {
         db.get("SELECT password FROM users WHERE email = ?",
             user,
             (err, rows) => {
-
                 //rejects if error with DB
                 if (err) {
                     return reject({

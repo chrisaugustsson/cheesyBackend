@@ -1,4 +1,4 @@
-const me = require("./../models/me");
+const me = require("../../models/me");
 
 const assert = me.getMe();
 

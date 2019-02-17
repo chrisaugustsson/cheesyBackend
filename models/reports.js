@@ -1,5 +1,5 @@
 const sqlite = require("sqlite3");
-const db = new sqlite.Database("./db/texts.sqlite");
+const db = require("../db/database.js");
 
 exports.get = function (kmom) {
     const result = new Promise((resolve, reject) => {

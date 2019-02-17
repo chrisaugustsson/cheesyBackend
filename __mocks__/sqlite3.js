@@ -5,7 +5,14 @@ module.exports = {
                 if (params === "fail") {
                     callback("error")
                 }
-                callback(null, { res: "ok" })
+                if (params === "user") {
+                    callback(null, { password: "password" })
+                }
+
+                if (params === "noUser") {
+                    callback(null, undefined)
+                }
+                callback(null, { res: "ok" });
             }),
             run: jest.fn((sql, param1, param2, callback) => {
                 if (param1 === "fail") {

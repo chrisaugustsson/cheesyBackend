@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "SET NODE_ENV='test' | jest",
+    "coveragelocal": "SET NODE_ENV='test' | jest --coverage",
     "coverage": "jest --coverage",
     "start": "node server.js",
     "production": "NODE_ENV='production' node server.js",
@@ -24,11 +25,13 @@
     "sqlite3": "^4.0.6"
   },
   "jest": {
+    "automock": false,
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
-      "!**/coverage/**"
+      "!**/coverage/**",
+      "!**/db/**"
     ]
   },
   "devDependencies": {

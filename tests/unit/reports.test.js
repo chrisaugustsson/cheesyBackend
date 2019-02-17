@@ -1,4 +1,5 @@
-const reports = require("./../models/reports");
+const reports = require("../../models/reports");
+
 
 test("Test get function. Get a valid report", () => {
     return expect(reports.get("")).resolves.toEqual({ res: "ok" });
