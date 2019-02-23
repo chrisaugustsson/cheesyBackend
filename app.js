@@ -8,6 +8,8 @@ const reports = require("./routes/reports");
 const user = require("./routes/user");
 
 const app = express();
+const http = require('http').Server(app);
+let realtime = require("./realtime/socketio");
 
 app.use(cors());
 
@@ -45,4 +47,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-module.exports = app;
+realtime(http);
+
+
+module.exports = http;
