@@ -1,9 +1,10 @@
 const socketio = require('socket.io');
+const chat = require("../models/chat");
 
 module.exports = function (server) {
     const io = socketio(server);
 
-    io.on('connection', (socket) => {
+    io.on('connection', async (socket) => {
         // Log when user connect
         console.log(socket.handshake.query.user + " just connected");
 
@@ -14,6 +15,10 @@ module.exports = function (server) {
             clientNames.push(clients[key].handshake.query.user)
         })
 
+        let messages = await chat.getMessages();
+
+        socket.emit('message', messages);
+
         // Disconnects a user
         socket.on('disconnect', function () {
             console.log(socket.handshake.query.user + " disconnected");
@@ -21,7 +26,8 @@ module.exports = function (server) {
 
         // Clients sends message
         socket.on('message', (message) => {
-            io.emit('message', { user: message.user, message: message.message, you: false });
+            io.emit('message', [{ user: message.user, message: message.message, you: false }]);
+            chat.addMessage(message.user, message.message);
         });
 
         // Client is typing
