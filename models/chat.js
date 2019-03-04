@@ -19,7 +19,7 @@ exports.addMessage = async function (userName, message) {
     const db = await client.db();
     const col = await db.collection("chat");
 
-    await col.insert({
+    await col.insertOne({
         user: userName,
         message: message
     });
