@@ -27,6 +27,7 @@ exports.addMessage = async function (userName, message) {
     await client.close();
 }
 
+
 exports.getMessages = async function () {
     const client = await mongo.connect(dsn);
     const db = await client.db();

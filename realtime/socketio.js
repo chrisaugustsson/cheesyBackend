@@ -15,8 +15,9 @@ module.exports = function (server) {
             clientNames.push(clients[key].handshake.query.user)
         })
 
+        // Gets all stored messges from the databases and sends
+        // them when a user connects
         let messages = await chat.getMessages();
-
         socket.emit('message', messages);
 
         // Disconnects a user
