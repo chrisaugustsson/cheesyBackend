@@ -19,7 +19,7 @@ module.exports = async function (server) {
     setInterval(() => {
         allCheese.map(async (current) => {
             const time = new Date();
-
+            console.log(current);
             let newPrice = cheese.getNewPrice(current);
             current.price = newPrice;
             current.history.push(newPrice);
