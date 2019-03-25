@@ -18,6 +18,12 @@ if (process.env.NODE_ENV !== "test") {
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+app.get("/", (req, res) => {
+    res.json({
+        message: "Hello"
+    })
+})
+
 app.use("/user", user);
 
 app.use((req, res, next) => {
