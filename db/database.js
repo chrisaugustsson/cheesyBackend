@@ -5,5 +5,5 @@ module.exports = (function () {
         console.log("Running in test");
         return new sqlite3.Database('./db/test.sqlite');
     }
-    return new sqlite3.Database('./db/texts.sqlite');
+    return new sqlite3.Database('./db/users.sqlite');
 }());

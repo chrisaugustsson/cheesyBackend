@@ -1,4 +1,5 @@
 module.exports = function (req, res, next) {
+    console.log("Checks for token");
     const jwt = require("jsonwebtoken");
 
     const token = req.headers['x-access-token'];

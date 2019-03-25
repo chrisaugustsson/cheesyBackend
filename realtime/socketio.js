@@ -1,44 +1,32 @@
 const socketio = require('socket.io');
-const chat = require("../models/chat");
+const cheese = require("../models/cheese");
 
-module.exports = function (server) {
+module.exports = async function (server) {
     const io = socketio(server);
+    const allCheese = await cheese.getAllChese();
 
     io.on('connection', async (socket) => {
         // Log when user connect
-        console.log(socket.handshake.query.user + " just connected");
-
-        // Get all the connected clients
-        let clients = io.sockets.clients().connected;
-        let clientNames = [];
-        Object.keys(clients).map((key) => {
-            clientNames.push(clients[key].handshake.query.user)
-        })
-
-        // Gets all stored messges from the databases and sends
-        // them when a user connects
-        let messages = await chat.getMessages();
-        socket.emit('message', messages);
+        console.log("Client just connected");
+        io.emit("cheese", allCheese);
 
         // Disconnects a user
         socket.on('disconnect', function () {
-            console.log(socket.handshake.query.user + " disconnected");
+            console.log("Client disconnected");
         });
-
-        // Clients sends message
-        socket.on('message', (message) => {
-            io.emit('message', [{ user: message.user, message: message.message, you: false }]);
-            chat.addMessage(message.user, message.message);
-        });
-
-        // Client is typing
-        socket.on("typing", () => {
-            socket.broadcast.emit("typing", { user: socket.handshake.query.user, typing: true });
-        })
-
-        // Client stoped typing
-        socket.on("notTyping", () => {
-            socket.broadcast.emit("typing", { user: socket.handshake.query.user, typing: false });
-        })
     });
+
+    setInterval(() => {
+        allCheese.map(async (current) => {
+            const time = new Date();
+
+            let newPrice = cheese.getNewPrice(current);
+            current.price = newPrice;
+            current.history.push(newPrice);
+            current.timeStamp.push(time);
+            await cheese.updatePrice(current.name, newPrice, time);
+            return current;
+        })
+        io.emit("cheese", allCheese);
+    }, 5000);
 }
