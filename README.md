@@ -17,14 +17,14 @@ Express as framework
 This project utilizes ExpressJS which is a JavaScript framework used with NodeJS. Express offers an open environment where you get to set the structure for your application. This can lead to a well-organized application, or a total disaster. In this case, the structure was already well defined and therefore making Express a good choice since it doesn’t limit the creativity in the decision making.
 
 The structure in this application is well proven and is divided in a certain mapping structure. The structure leads as follows: 
-Config – Contains configuration files
-Helpers – Contains helper functions used across the application
-Middlewares – Contains middleware functions that is used as a middle layer between routs
-Models – Different models that needs to communicate with a database
-Public – Public assets such as photos
-RealTime – Realtime functionality
-Routes – All the routes for the application
-Tests – Contains test files for the application
+* Config – Contains configuration files
+* Helpers – Contains helper functions used across the application
+* Middlewares – Contains middleware functions that is used as a middle layer between routs
+* Models – Different models that needs to communicate with a database
+* Public – Public assets such as photos
+* RealTime – Realtime functionality
+* Routes – All the routes for the application
+* Tests – Contains test files for the application
 
 MongoDB as database
 ======================
@@ -37,5 +37,5 @@ For the real time functionality, this application uses SocketIO. This helps to s
 Authenticaiton
 =================
 Authentication is this application uses JSONWebtokens. Using JSONWebtokens, makes authentication very convenient. The client logins using a username and password and then gets a web-token. This token is then used in each request made to the server as a proof of authorization. The token comes with an expiration time, making it useless after a certain amount of time. It is also encrypted making it impossible to change, since this would affect the encryption – making the token useless.
- 
+
 A drawback however, would be if the token got in the wrong hands. As long as someone has the token, this person could authenticate towards the server and potentially get access to information he/she shouldn’t. A bonus using web-tokens, is that it can be used between multiple platforms since it is not tied to any session.
